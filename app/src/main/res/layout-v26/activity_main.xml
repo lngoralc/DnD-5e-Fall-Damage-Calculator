@@ -44,6 +44,7 @@
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="@string/defaultEmptyHint"
+        android:importantForAutofill="no"
         android:inputType="number"
         android:maxLength="5"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -149,7 +150,8 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintEnd_toStartOf="@+id/checkIn1"
         app:layout_constraintStart_toEndOf="@+id/checkTitle1"
-        app:layout_constraintTop_toBottomOf="@+id/terrainTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/terrainTitle"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/name2"
@@ -165,7 +167,8 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintEnd_toStartOf="@+id/checkIn2"
         app:layout_constraintStart_toEndOf="@+id/checkTitle2"
-        app:layout_constraintTop_toBottomOf="@+id/checkTitle1" />
+        app:layout_constraintTop_toBottomOf="@+id/checkTitle1"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/name3"
@@ -181,7 +184,8 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintEnd_toStartOf="@+id/checkIn3"
         app:layout_constraintStart_toEndOf="@+id/checkTitle3"
-        app:layout_constraintTop_toBottomOf="@+id/checkTitle2" />
+        app:layout_constraintTop_toBottomOf="@+id/checkTitle2"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/name4"
@@ -197,17 +201,19 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintEnd_toStartOf="@+id/checkIn4"
         app:layout_constraintStart_toEndOf="@+id/checkTitle4"
-        app:layout_constraintTop_toBottomOf="@+id/checkTitle3" />
+        app:layout_constraintTop_toBottomOf="@+id/checkTitle3"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/name5"
         android:layout_width="134dp"
-        android:layout_height="46dp"
+        android:layout_height="47dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="@string/nameAutofill"
+        android:importantForAutofill="no"
         android:inputType="textCapWords"
         android:maxLength="13"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -229,7 +235,8 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintEnd_toStartOf="@+id/checkIn6"
         app:layout_constraintStart_toEndOf="@+id/checkTitle6"
-        app:layout_constraintTop_toBottomOf="@+id/checkTitle5" />
+        app:layout_constraintTop_toBottomOf="@+id/checkTitle5"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/checkIn1"
@@ -240,6 +247,7 @@
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="@string/defaultEmptyHint"
+        android:importantForAutofill="no"
         android:inputType="numberSigned"
         android:maxLength="3"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -257,6 +265,7 @@
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="@string/defaultEmptyHint"
+        android:importantForAutofill="no"
         android:inputType="numberSigned"
         android:maxLength="3"
         android:singleLine="true"
@@ -275,6 +284,7 @@
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="@string/defaultEmptyHint"
+        android:importantForAutofill="no"
         android:inputType="numberSigned"
         android:maxLength="3"
         android:singleLine="true"
@@ -293,6 +303,7 @@
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="@string/defaultEmptyHint"
+        android:importantForAutofill="no"
         android:inputType="numberSigned"
         android:maxLength="3"
         android:singleLine="true"
@@ -311,6 +322,7 @@
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="@string/defaultEmptyHint"
+        android:importantForAutofill="no"
         android:inputType="numberSigned"
         android:maxLength="3"
         android:singleLine="true"
@@ -329,6 +341,7 @@
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="@string/defaultEmptyHint"
+        android:importantForAutofill="no"
         android:inputType="numberSigned"
         android:maxLength="3"
         android:singleLine="true"

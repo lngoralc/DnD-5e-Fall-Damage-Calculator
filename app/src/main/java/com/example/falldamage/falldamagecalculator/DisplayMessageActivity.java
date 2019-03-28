@@ -20,61 +20,61 @@ public class DisplayMessageActivity extends AppCompatActivity {
 
         // For each of the up-to-six results
         for (int i = 1; i < 7; i++) {
-            TextView dieView;
+            TextView resultView;
 
             // Choose which result to extract
             switch (i) {
                 case 1:
-                    dieView = findViewById(R.id.damageDie1);
+                    resultView = findViewById(R.id.damageDie1);
                     break;
                 case 2:
-                    dieView = findViewById(R.id.damageDie2);
+                    resultView = findViewById(R.id.damageDie2);
                     break;
                 case 3:
-                    dieView = findViewById(R.id.damageDie3);
+                    resultView = findViewById(R.id.damageDie3);
                     break;
                 case 4:
-                    dieView = findViewById(R.id.damageDie4);
+                    resultView = findViewById(R.id.damageDie4);
                     break;
                 case 5:
-                    dieView = findViewById(R.id.damageDie5);
+                    resultView = findViewById(R.id.damageDie5);
                     break;
                 case 6:
-                    dieView = findViewById(R.id.damageDie6);
+                    resultView = findViewById(R.id.damageDie6);
                     break;
                 default:
-                    dieView = findViewById(R.id.damageDie1);
+                    resultView = findViewById(R.id.damageDie1);
             }
 
             // Display the corresponding result
-            dieView.setText(result[i-1]);
+            resultView.setText(result[i-1]);
 
             // Choose which name to extract
             switch (i) {
                 case 1:
-                    dieView = findViewById(R.id.nameResult1);
+                    resultView = findViewById(R.id.nameResult1);
                     break;
                 case 2:
-                    dieView = findViewById(R.id.nameResult2);
+                    resultView = findViewById(R.id.nameResult2);
                     break;
                 case 3:
-                    dieView = findViewById(R.id.nameResult3);
+                    resultView = findViewById(R.id.nameResult3);
                     break;
                 case 4:
-                    dieView = findViewById(R.id.nameResult4);
+                    resultView = findViewById(R.id.nameResult4);
                     break;
                 case 5:
-                    dieView = findViewById(R.id.nameResult5);
+                    resultView = findViewById(R.id.nameResult5);
                     break;
                 case 6:
-                    dieView = findViewById(R.id.nameResult6);
+                    resultView = findViewById(R.id.nameResult6);
                     break;
                 default:
-                    dieView = findViewById(R.id.nameResult1);
+                    resultView = findViewById(R.id.nameResult1);
             }
 
             // Display the corresponding name
-            dieView.setText(names[i-1]);
+            resultView.setText(names[i-1]);
 
         }
     }
