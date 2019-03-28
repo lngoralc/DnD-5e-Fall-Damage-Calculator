@@ -23,14 +23,14 @@ public class MainActivity extends AppCompatActivity {
     private String dropdownSelection;
 
     // Acrobatics check modifiers corresponding to the 6 levels of hardness
-    private int terrainModTab[] = {-5,0,5,10,15,25};
+    private int terrainModTab[] = {-5,0,5,10,20,30};
 
-    // Fall distance modifiers corresponding to the result of the Acrobatics check
-    //                           DC -10, -5,  0,  5, 10, 15, 20, 25, 30, 35, 40, 45, 50
-    private double distModTab[] = {3.0,2.0,1.5,1.0,0.9,0.8,0.7,0.6,0.5,0.4,0.3,0.2,0.1};
+    // Effective fall distance modifiers, corresponding to the result of an Acrobatics check
+    //                          DC -10, -5,  0,  5, 10,  15, 20, 25, 30,  35, 40,  45, 50,  55,  60,  65
+    private double distModTab[] = {2.0,1.7,1.3,1.0,0.8,0.65,0.5,0.4,0.3,0.25,0.2,0.15,0.1,0.07,0.05,0.03};
 
-    // Initialize an empty array to store fall damage in 10 foot increments from 0 to 1500 feet
-    private String damageDieTab[] = new String[151];
+    // Initialize an array to store fall damage dice for 10 foot increments from 0 to 1000 feet
+    private String damageDieTab[] = new String[101];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +71,8 @@ public class MainActivity extends AppCompatActivity {
         damageDieTab[7] = "12d12";
         damageDieTab[8] = "14d12";
         damageDieTab[9] = "16d12";
-        // Square root function for damage up to 1500' (the worst-case scenario for damage)
-        for (int i=10; i<151; i++) {
+        // Square root function for damage up to 1000' (the worst-case scenario for damage)
+        for (int i=10; i<101; i++) {
             String sqrt = Long.toString(Math.round(Math.sqrt(10*i)));
             damageDieTab[i] = sqrt+"d20+"+sqrt;
         }
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         double distMod;
         EditText checkResultText;
         int checkResult;
-        int fallDist;
+        float fallDist;
 
         // Get the fall distance as text
         EditText fallDistText = findViewById(R.id.distIn);
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         else
             fallDist = Integer.parseInt(fallDistText.getText().toString());
 
-        // Select the correct check result for further calculations
+        // Select the check result corresponding to the selected creature
         switch (checkIndex) {
             case 1:
                 checkResultText = findViewById(R.id.checkIn1);
@@ -120,42 +120,44 @@ public class MainActivity extends AppCompatActivity {
                 checkResultText = findViewById(R.id.checkIn1);
         }
 
-        // Get the ability check result, or return no damage for each field with an empty or non-integer ability check field
+        // Get the ability check result, or return no damage for an empty or non-integer ability check field
         if (checkResultText.getText().toString().isEmpty() || checkResultText.getText().toString().equals("-"))
             return "-";
         else checkResult = Integer.parseInt(checkResultText.getText().toString());
 
-        // Assign the proper terrainTypeIndex to lookup in terrainModTab, based off the dropdown value
+        // Assign the proper terrainTypeIndex to look up in terrainModTab, chosen from the dropdown
         terrainTypeIndex = java.util.Arrays.asList(terrainTypes).indexOf(dropdownSelection);
 
-        // Apply the terrain hardness modifier to the check result
+        // Apply the terrain hardness modifier to the Acrobatics check result
         checkResult += terrainModTab[terrainTypeIndex];
 
         // Choose the appropriate index for the fall distance modifier, calculated from the modified Acrobatics check
         distModIndex = checkResult/5 + 2;
-        if (distModIndex > 12)
-            distModIndex = 12;
+        if (distModIndex > 15)
+            distModIndex = 15;
         else if (checkResult <= -10)
             distModIndex = 0;
-        else if (checkResult < 0 && checkResult > -10 && checkResult != -5) // applies correction to calculation for negative numbers
+        else if (checkResult < 0 && checkResult != -5) // applies correction to calculation for negative numbers
             distModIndex--;
 
         // Calculate effective distance fallen, with terminal velocity reached after 500'
+        // (Note that damage continues scaling up to 1500', because worst-case, distMod = 3.0)
         if (fallDist > 500)
             fallDist = 500;
         distMod = distModTab[distModIndex];
         fallDist *= distMod;
 
-        // Round down to nearest 10' increment
-        fallDist -= fallDist%10;
+        // Divide by 10 to prepare index for damageDieTab (index = distance / 10)
+        // Also round to nearest whole number (representing nearest 10' increment)
+        fallDist /= 10;
+        fallDist = Math.round(fallDist);
 
-        // Return the damage dice for the effective distance fallen (index = distance / 10)
-        return damageDieTab[fallDist/10];
-
+        // Return the damage dice for the effective distance fallen
+        return damageDieTab[(int)fallDist];
     }
 
     // Called when the user taps the Calculate button
-    // mostly cannibalized from online tutorial
+    // Intent and putExtra function usage from online tutorial
     public void showDamage(View view) {
         Intent resultsIntent = new Intent(this, DisplayMessageActivity.class);
 
