@@ -23,14 +23,14 @@ public class MainActivity extends AppCompatActivity {
     private String dropdownSelection;
 
     // Acrobatics check modifiers corresponding to the 6 levels of hardness
-    private static final int terrainModTab[] = {-5,0,5,10,20,30};
+    private static final int terrainModTab[] = {-5,0,5,10,20,35};
 
     // Effective fall distance modifiers, corresponding to the result of an Acrobatics check
-    //                                       DC -10, -5,  0,  5, 10,  15, 20, 25, 30,  35, 40,  45, 50,  55,  60,  65
-    private static final double distModTab[] = {2.0,1.7,1.3,1.0,0.8,0.65,0.5,0.4,0.3,0.25,0.2,0.15,0.1,0.07,0.05,0.03};
+    //                                       DC -10, -5,  0,  5, 10, 15,  20, 25, 30, 35,  40, 45,  50, 55,  60,  65,  70
+    private static final double distModTab[] = {2.4,2.0,1.7,1.3,1.0,0.8,0.65,0.5,0.4,0.3,0.25,0.2,0.15,0.1,0.07,0.05,0.03};
 
-    // Initialize an array to store fall damage dice for 10 foot increments from 0 to 1000 feet
-    private String damageDieTab[] = new String[101];
+    // Initialize an array to store fall damage dice for 10 foot increments from 0 to 1500 feet
+    private String damageDieTab[] = new String[151];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +61,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Populating the damage die table - each index represents 10 feet (i.e. [5] is 50 feet)
-        damageDieTab[0] = "0";
-        damageDieTab[1] = "1";
-        damageDieTab[2] = "1d4";
-        damageDieTab[3] = "2d6";
+        damageDieTab[0] = "1";
+        damageDieTab[1] = "1d4";
+        damageDieTab[2] = "2d4";
+        damageDieTab[3] = "3d6";
         damageDieTab[4] = "4d8";
         damageDieTab[5] = "7d10";
         damageDieTab[6] = "10d12";
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         damageDieTab[8] = "14d12";
         damageDieTab[9] = "16d12";
         // Square root function for damage up to 1000' (the worst-case scenario for damage)
-        for (int i=10; i<101; i++) {
+        for (int i=10; i<151; i++) {
             String sqrt = Long.toString(Math.round(Math.sqrt(10*i)));
             damageDieTab[i] = sqrt+"d20+"+sqrt;
         }
@@ -141,13 +141,13 @@ public class MainActivity extends AppCompatActivity {
             distModIndex--;
 
         // Apply boundaries to calculated index
-        if (distModIndex > 15)
-            distModIndex = 15;
+        if (distModIndex > 16)
+            distModIndex = 16;
         else if (distModIndex < 0)
             distModIndex = 0;
 
         // Calculate effective distance fallen, with terminal velocity reached after 500'
-        // (Note that damage continues scaling up to 1000', because worst-case, distMod = 2.0)
+        // (Note that damage continues scaling, because distMod can be > 1)
         if (fallDist > 500)
             fallDist = 500;
         distMod = distModTab[distModIndex];
@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Divide by 10 to prepare index for damageDieTab (index = distance / 10)
         // Also round to nearest whole number (representing nearest 10' increment)
-        fallDist /= 10.0;
+        fallDist /= 10;
         fallDist = Math.round(fallDist);
 
         // Return the damage dice for the effective distance fallen
