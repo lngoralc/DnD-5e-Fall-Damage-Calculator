@@ -17,17 +17,17 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_NAMES = "com.example.falldamage.NAMES";
 
     // Create a list of items for the dropdown terrain hardness selector
-    private static final String[] terrainTypes = new String[]{"Incompressible", "Hard", "Medium", "Soft", "Very Soft", "Extremely Elastic"};
+    private static final String[] terrainTypes = new String[]{"Stone", "Wood", "Grass", "Marsh", "Fall broken"};
 
     // Create a string to store the selected terrain hardness
     private String dropdownSelection;
 
-    // Acrobatics check modifiers corresponding to the 6 levels of hardness
-    private static final int terrainModTab[] = {-5,0,5,10,20,35};
+    // Acrobatics check modifiers corresponding to the various levels of hardness
+    private static final int terrainModTab[] = {-15,0,15,30,45};
 
     // Effective fall distance modifiers, corresponding to the result of an Acrobatics check
-    //                                       DC -10, -5,  0,  5, 10, 15,  20, 25, 30, 35,  40, 45,  50, 55,  60,  65,  70
-    private static final double distModTab[] = {2.4,2.0,1.7,1.3,1.0,0.8,0.65,0.5,0.4,0.3,0.25,0.2,0.15,0.1,0.07,0.05,0.03};
+    //                                       DC -20,-15,-10, -5,  0,  5, 10, 15,  20, 25, 30, 35,  40, 45,  50, 55,  60,  65,  70,  75,  80
+    private static final double distModTab[] = {3.0,2.7,2.4,2.0,1.7,1.3,1.0,0.8,0.65,0.5,0.4,0.3,0.25,0.2,0.15,0.1,0.07,0.05,0.03,0.02,0.01};
 
     // Initialize an array to store fall damage dice for 10 foot increments from 0 to 1500 feet
     private String damageDieTab[] = new String[151];
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         // Set the spinner's adapter to the created one.
         dropdown.setAdapter(dropdownAdapter);
         // Set default terrain hardness
-        dropdown.setSelection(2);
+        dropdown.setSelection(3);
 
         // Listener for the spinner
         dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -136,13 +136,13 @@ public class MainActivity extends AppCompatActivity {
         checkResult += terrainModTab[terrainTypeIndex];
 
         // Choose the appropriate index for the fall distance modifier, calculated from the modified Acrobatics check
-        distModIndex = checkResult/5 + 2;
-        if (checkResult < 0 && checkResult != -5) // applies correction to calculation for negative numbers
+        distModIndex = checkResult/5 + 4;
+        if (checkResult < 0 && checkResult % 5 != 0) // applies correction to calculation for negative numbers
             distModIndex--;
 
         // Apply boundaries to calculated index
-        if (distModIndex > 16)
-            distModIndex = 16;
+        if (distModIndex > 20)
+            distModIndex = 20;
         else if (distModIndex < 0)
             distModIndex = 0;
 
