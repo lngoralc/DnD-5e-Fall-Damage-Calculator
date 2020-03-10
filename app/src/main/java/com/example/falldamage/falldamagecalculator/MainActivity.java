@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_NAMES = "com.example.falldamage.NAMES";
 
     // Create a list of items for the dropdown terrain hardness selector
-    private static final String[] terrainTypes = new String[]{"Stone", "Wood", "Grass", "Marsh", "Fall broken"};
+    private static final String[] terrainTypes = new String[]{"Stone", "Wood", "Grassland", "Marsh", "Fall broken"};
 
     // Create a string to store the selected terrain hardness
     private String dropdownSelection;
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         // Set the spinner's adapter to the created one.
         dropdown.setAdapter(dropdownAdapter);
         // Set default terrain hardness
-        dropdown.setSelection(3);
+        dropdown.setSelection(2);
 
         // Listener for the spinner
         dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
