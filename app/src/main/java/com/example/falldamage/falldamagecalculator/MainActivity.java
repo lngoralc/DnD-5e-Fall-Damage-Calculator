@@ -62,12 +62,12 @@ public class MainActivity extends AppCompatActivity {
 
         // Populating the damage die table - each index represents 10 feet (i.e. [5] is 50 feet)
         damageDieTab[0] = "1";
-        damageDieTab[1] = "1d4";
-        damageDieTab[2] = "2d4";
-        damageDieTab[3] = "3d6";
-        damageDieTab[4] = "4d8";
+        damageDieTab[1] = "1d6";
+        damageDieTab[2] = "2d6";
+        damageDieTab[3] = "3d8";
+        damageDieTab[4] = "5d8";
         damageDieTab[5] = "7d10";
-        damageDieTab[6] = "10d12";
+        damageDieTab[6] = "10d10";
         damageDieTab[7] = "12d12";
         damageDieTab[8] = "14d12";
         damageDieTab[9] = "16d12";
