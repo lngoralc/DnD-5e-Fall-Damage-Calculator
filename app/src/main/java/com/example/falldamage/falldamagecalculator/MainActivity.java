@@ -17,20 +17,20 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_NAMES = "com.example.falldamage.NAMES";
 
     // Create a list of items for the dropdown terrain hardness selector
-    private static final String[] terrainTypes = new String[]{"Stone", "Wood", "Grassland", "Marsh", "Fall broken"};
+    private static final String[] terrainTypes = new String[]{"Stone", "Dry ground", "Soggy ground", "Marsh", "Fall broken"};
 
     // Create a string to store the selected terrain hardness
     private String dropdownSelection;
 
     // Acrobatics check modifiers corresponding to the various levels of hardness
-    private static final int terrainModTab[] = {-15,0,15,30,45};
+    private static final int terrainModTab[] = {-10,0,15,30,45};
 
     // Effective fall distance modifiers, corresponding to the result of an Acrobatics check
     //                                       DC -20,-15,-10, -5,  0,  5, 10, 15,  20, 25, 30, 35,  40, 45,  50, 55,  60,  65,  70,  75,  80
     private static final double distModTab[] = {3.0,2.7,2.4,2.0,1.7,1.3,1.0,0.8,0.65,0.5,0.4,0.3,0.25,0.2,0.15,0.1,0.07,0.05,0.03,0.02,0.01};
 
     // Max effective fall distance based off terminal velocity distance times worst fall distance modifier
-    private static final int maxFall = 500 * distModTab[0];
+    private static final int maxFall = 500 * (int)distModTab[0];
 
     // Initialize an array to store fall damage dice for 10 foot increments from 0 to maxFall feet
     private String damageDieTab[] = new String[maxFall/10 + 1];
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         // Set the spinner's adapter to the created one.
         dropdown.setAdapter(dropdownAdapter);
         // Set default terrain hardness
-        dropdown.setSelection(2);
+        dropdown.setSelection(1);
 
         // Listener for the spinner
         dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
