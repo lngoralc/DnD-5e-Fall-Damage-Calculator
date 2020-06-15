@@ -23,10 +23,10 @@ public class MainActivity extends AppCompatActivity {
     private String dropdownSelection;
 
     // Acrobatics check modifiers corresponding to the various levels of hardness
-    private static final int terrainModTab[] = {-10,0,15,30,45};
+    private static final int terrainModTab[] = {-5,0,10,25,45};
 
-    // Effective fall distance modifiers, corresponding to the result of an Acrobatics check
-    //                                       DC -20,-15,-10, -5,  0,  5, 10, 15,  20, 25, 30, 35,  40, 45,  50, 55,  60,  65,  70,  75,  80
+    // Effective fall distance DCs (commented) and modifiers (in array), corresponding to the result of an Acrobatics check
+    // ALL DCs REDUCED BY 1 FROM THESE VALUES   -20,-15,-10, -5,  0,  5, 10, 15,  20, 25, 30, 35,  40, 45,  50, 55,  60,  65,  70,  75,  80
     private static final double distModTab[] = {3.0,2.7,2.4,2.0,1.7,1.3,1.0,0.8,0.65,0.5,0.4,0.3,0.25,0.2,0.15,0.1,0.07,0.05,0.03,0.02,0.01};
 
     // Max effective fall distance based off terminal velocity distance times worst fall distance modifier
@@ -139,8 +139,9 @@ public class MainActivity extends AppCompatActivity {
         checkResult += terrainModTab[terrainTypeIndex];
 
         // Choose the appropriate index for the fall distance modifier, calculated from the modified Acrobatics check
-        distModIndex = checkResult/5 + 4;
-        if (checkResult < 0 && checkResult % 5 != 0) // applies correction to calculation for negative numbers
+        // Effectively reducing all DCs by 1 (i.e. neutral range becomes 9-13, not 10-14) via the +1 here
+        distModIndex = (checkResult+1)/5 + 4;
+        if (checkResult < 0 && (checkResult+1) % 5 != 0) // applies correction to calculation for negative numbers
             distModIndex--;
 
         // Apply boundaries to calculated index
