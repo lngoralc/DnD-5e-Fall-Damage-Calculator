@@ -6,21 +6,101 @@
     android:layout_height="match_parent"
     tools:context="com.example.falldamage.falldamagecalculator.MainActivity">
 
-    <TextView
-        android:id="@+id/Title"
-        android:layout_width="251dp"
+    <EditText
+        android:id="@+id/checkIn8"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="35"
+        android:importantForAutofill="no"
+        android:inputType="numberSigned"
+        android:maxLength="3"
+        android:singleLine="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkTitle7" />
+
+    <EditText
+        android:id="@+id/name8"
+        android:layout_width="134dp"
+        android:layout_height="46dp"
         android:layout_marginTop="16dp"
         android:ems="10"
+        android:hint="@string/nameAutofill"
+        android:importantForAutofill="no"
+        android:inputType="textCapWords"
+        android:maxLength="13"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintEnd_toStartOf="@+id/checkIn8"
+        app:layout_constraintStart_toEndOf="@+id/checkTitle8"
+        app:layout_constraintTop_toBottomOf="@+id/checkTitle7" />
+
+    <TextView
+        android:id="@+id/checkTitle8"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
         android:inputType="none"
-        android:selectAllOnFocus="false"
-        android:text="@string/calcTitle"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/checkTitle"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/checkTitle7" />
+
+    <EditText
+        android:id="@+id/checkIn7"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="30"
+        android:importantForAutofill="no"
+        android:inputType="numberSigned"
+        android:maxLength="3"
+        android:singleLine="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkTitle6" />
+
+    <EditText
+        android:id="@+id/name7"
+        android:layout_width="134dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="@string/nameAutofill"
+        android:importantForAutofill="no"
+        android:inputType="textCapWords"
+        android:maxLength="13"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintEnd_toStartOf="@+id/checkIn7"
+        app:layout_constraintStart_toEndOf="@+id/checkTitle7"
+        app:layout_constraintTop_toBottomOf="@+id/checkTitle6" />
+
+    <TextView
+        android:id="@+id/checkTitle7"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:inputType="none"
+        android:text="@string/checkTitle"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkTitle6" />
 
     <TextView
         android:id="@+id/distTitle"
@@ -33,16 +113,16 @@
         android:text="@string/distMsg"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Title" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/distIn"
         android:layout_width="60dp"
         android:layout_height="0dp"
-        android:gravity="center"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
+        android:gravity="center"
         android:hint="@string/defaultEmptyHint"
         android:importantForAutofill="no"
         android:inputType="number"
@@ -50,7 +130,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Title" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/checkTitle1"
@@ -241,12 +321,12 @@
     <EditText
         android:id="@+id/checkIn1"
         android:layout_width="40dp"
-        android:gravity="center"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
-        android:hint="@string/defaultEmptyHint"
+        android:gravity="center"
+        android:hint="0"
         android:importantForAutofill="no"
         android:inputType="numberSigned"
         android:maxLength="3"
@@ -259,12 +339,12 @@
     <EditText
         android:id="@+id/checkIn2"
         android:layout_width="40dp"
-        android:gravity="center"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
-        android:hint="@string/defaultEmptyHint"
+        android:gravity="center"
+        android:hint="5"
         android:importantForAutofill="no"
         android:inputType="numberSigned"
         android:maxLength="3"
@@ -278,12 +358,12 @@
     <EditText
         android:id="@+id/checkIn3"
         android:layout_width="40dp"
-        android:gravity="center"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
-        android:hint="@string/defaultEmptyHint"
+        android:gravity="center"
+        android:hint="10"
         android:importantForAutofill="no"
         android:inputType="numberSigned"
         android:maxLength="3"
@@ -297,12 +377,12 @@
     <EditText
         android:id="@+id/checkIn4"
         android:layout_width="40dp"
-        android:gravity="center"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
-        android:hint="@string/defaultEmptyHint"
+        android:gravity="center"
+        android:hint="15"
         android:importantForAutofill="no"
         android:inputType="numberSigned"
         android:maxLength="3"
@@ -316,12 +396,12 @@
     <EditText
         android:id="@+id/checkIn5"
         android:layout_width="40dp"
-        android:gravity="center"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
-        android:hint="@string/defaultEmptyHint"
+        android:gravity="center"
+        android:hint="20"
         android:importantForAutofill="no"
         android:inputType="numberSigned"
         android:maxLength="3"
@@ -335,12 +415,12 @@
     <EditText
         android:id="@+id/checkIn6"
         android:layout_width="40dp"
-        android:gravity="center"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
-        android:hint="@string/defaultEmptyHint"
+        android:gravity="center"
+        android:hint="25"
         android:importantForAutofill="no"
         android:inputType="numberSigned"
         android:maxLength="3"
@@ -380,7 +460,7 @@
         android:id="@+id/calculateDamage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="480dp"
+        android:layout_marginTop="24dp"
         android:onClick="showDamage"
         android:text="@string/calculateButtonMsg"
         app:layout_constraintEnd_toEndOf="parent"
@@ -388,6 +468,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Title" />
+        app:layout_constraintTop_toBottomOf="@+id/checkTitle8" />
 
 </android.support.constraint.ConstraintLayout>

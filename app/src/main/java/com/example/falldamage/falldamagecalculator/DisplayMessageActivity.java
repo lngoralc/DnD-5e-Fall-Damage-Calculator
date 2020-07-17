@@ -18,8 +18,8 @@ public class DisplayMessageActivity extends AppCompatActivity {
         String result[] = resultsIntent.getStringArrayExtra(MainActivity.EXTRA_RESULTS);
         String names[] = resultsIntent.getStringArrayExtra(MainActivity.EXTRA_NAMES);
 
-        // For each of the up-to-six results
-        for (int i = 1; i < 7; i++) {
+        // For each of the up-to-eight results
+        for (int i = 1; i < 9; i++) {
             TextView resultView;
 
             // Choose which result to extract
@@ -41,6 +41,12 @@ public class DisplayMessageActivity extends AppCompatActivity {
                     break;
                 case 6:
                     resultView = findViewById(R.id.damageDie6);
+                    break;
+                case 7:
+                    resultView = findViewById(R.id.damageDie7);
+                    break;
+                case 8:
+                    resultView = findViewById(R.id.damageDie8);
                     break;
                 default:
                     resultView = findViewById(R.id.damageDie1);
@@ -68,6 +74,12 @@ public class DisplayMessageActivity extends AppCompatActivity {
                     break;
                 case 6:
                     resultView = findViewById(R.id.nameResult6);
+                    break;
+                case 7:
+                    resultView = findViewById(R.id.nameResult7);
+                    break;
+                case 8:
+                    resultView = findViewById(R.id.nameResult8);
                     break;
                 default:
                     resultView = findViewById(R.id.nameResult1);

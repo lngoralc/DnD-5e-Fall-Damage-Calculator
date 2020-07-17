@@ -123,14 +123,20 @@ public class MainActivity extends AppCompatActivity {
             case 6:
                 checkResultText = findViewById(R.id.checkIn6);
                 break;
+            case 7:
+                checkResultText = findViewById(R.id.checkIn7);
+                break;
+            case 8:
+                checkResultText = findViewById(R.id.checkIn8);
+                break;
             default:
                 checkResultText = findViewById(R.id.checkIn1);
         }
 
-        // Get the ability check result, or return no damage for an empty or non-integer ability check field
+        // Get the ability check result, or return default damage values for empty or non-integer check inputs
         checkResultString = checkResultText.getText().toString();
         if (checkResultString.isEmpty() || checkResultString.equals("-"))
-            origCheckResult = checkIndex * 5;
+            origCheckResult = (checkIndex - 1) * 5;
         else origCheckResult = Integer.parseInt(checkResultString);
         moddedCheckResult = origCheckResult;
 
@@ -173,12 +179,12 @@ public class MainActivity extends AppCompatActivity {
     public void showDamage(View view) {
         Intent resultsIntent = new Intent(this, DisplayMessageActivity.class);
 
-        String results[][] = new String[6][2];
-        String damage[] = new String[6];
-        String names[] = new String[6];
+        String results[][] = new String[8][2];
+        String damage[] = new String[8];
+        String names[] = new String[8];
 
         // Calculate damage for each of the six fields in the app
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 8; i++) {
             results[i] = calculateDamage(i + 1);
             damage[i] = results[i][0];
         }
@@ -208,6 +214,14 @@ public class MainActivity extends AppCompatActivity {
         names[5] = ((EditText)findViewById(R.id.name6)).getText().toString();
         if (names[5].length() == 0)
             names[5] = results[5][1];
+
+        names[6] = ((EditText)findViewById(R.id.name7)).getText().toString();
+        if (names[6].length() == 0)
+            names[6] = results[6][1];
+
+        names[7] = ((EditText)findViewById(R.id.name8)).getText().toString();
+        if (names[7].length() == 0)
+            names[7] = results[7][1];
 
         // Pass the damage dice and the names to the results page
         resultsIntent.putExtra(EXTRA_RESULTS, damage);
