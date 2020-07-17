@@ -23,17 +23,17 @@ public class MainActivity extends AppCompatActivity {
     private String dropdownSelection;
 
     // Acrobatics check modifiers corresponding to the various levels of hardness
-    private static final int terrainModTab[] = {-5,0,10,25,45};
+    private static final int[] terrainModTab = {-5,0,10,25,45};
 
     // Effective fall distance DCs (commented) and modifiers (in array), corresponding to the result of an Acrobatics check
     // ALL DCs REDUCED BY 1 FROM THESE VALUES   -20,-15,-10, -5,  0,  5, 10, 15,  20, 25, 30, 35,  40, 45,  50, 55,  60,  65,  70,  75,  80
-    private static final double distModTab[] = {3.0,2.7,2.4,2.0,1.7,1.3,1.0,0.8,0.65,0.5,0.4,0.3,0.25,0.2,0.15,0.1,0.07,0.05,0.03,0.02,0.01};
+    private static final double[] distModTab = {3.0,2.7,2.4,2.0,1.7,1.3,1.0,0.8,0.65,0.5,0.4,0.3,0.25,0.2,0.15,0.1,0.07,0.05,0.03,0.02,0.01};
 
     // Max effective fall distance based off terminal velocity distance times worst fall distance modifier
     private static final int maxFall = 500 * (int)distModTab[0];
 
     // Initialize an array to store fall damage dice for 10 foot increments from 0 to maxFall feet
-    private String damageDieTab[] = new String[maxFall/10 + 1];
+    private String[] damageDieTab = new String[maxFall/10 + 1];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,12 +82,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // This function returns the damage dice for one of up to six creatures (index passed in determines which creature)
-    private String calculateDamage(int checkIndex) {
+    private String[] calculateDamage(int checkIndex) {
         int terrainTypeIndex;
         int distModIndex;
         double distMod;
         EditText checkResultText;
-        int checkResult;
+        int origCheckResult;
+        int moddedCheckResult;
         float fallDist;
         String fallDistString;
         String checkResultString;
@@ -98,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Extract integer distance from text, or return no damage if the fall distance field is empty
         if (fallDistString.isEmpty())
-            return "-";
+            return new String[]{"-", "-"};
         else
             fallDist = Integer.parseInt(fallDistString);
 
@@ -129,19 +130,20 @@ public class MainActivity extends AppCompatActivity {
         // Get the ability check result, or return no damage for an empty or non-integer ability check field
         checkResultString = checkResultText.getText().toString();
         if (checkResultString.isEmpty() || checkResultString.equals("-"))
-            return "-";
-        else checkResult = Integer.parseInt(checkResultString);
+            origCheckResult = checkIndex * 5;
+        else origCheckResult = Integer.parseInt(checkResultString);
+        moddedCheckResult = origCheckResult;
 
         // Assign the proper terrainTypeIndex to look up in terrainModTab, chosen from the dropdown
         terrainTypeIndex = java.util.Arrays.asList(terrainTypes).indexOf(dropdownSelection);
 
         // Apply the terrain hardness modifier to the Acrobatics check result
-        checkResult += terrainModTab[terrainTypeIndex];
+        moddedCheckResult += terrainModTab[terrainTypeIndex];
 
         // Choose the appropriate index for the fall distance modifier, calculated from the modified Acrobatics check
         // Effectively reducing all DCs by 1 (i.e. neutral range becomes 9-13, not 10-14) via the +1 here
-        distModIndex = (checkResult+1)/5 + 4;
-        if (checkResult < 0 && (checkResult+1) % 5 != 0) // applies correction to calculation for negative numbers
+        distModIndex = (moddedCheckResult+1)/5 + 4;
+        if (moddedCheckResult < 0 && (moddedCheckResult+1) % 5 != 0) // applies correction to calculation for negative numbers
             distModIndex--;
 
         // Apply boundaries to calculated index
@@ -163,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
         fallDist = Math.round(fallDist);
 
         // Return the damage dice for the effective distance fallen
-        return damageDieTab[(int)fallDist];
+        return new String[]{damageDieTab[(int) fallDist], Integer.toString(origCheckResult)};
     }
 
     // Called when the user taps the Calculate button
@@ -171,41 +173,44 @@ public class MainActivity extends AppCompatActivity {
     public void showDamage(View view) {
         Intent resultsIntent = new Intent(this, DisplayMessageActivity.class);
 
-        String result[] = new String[6];
+        String results[][] = new String[6][2];
+        String damage[] = new String[6];
         String names[] = new String[6];
 
         // Calculate damage for each of the six fields in the app
-        for (int i = 0; i < 6; i++)
-            result[i] = calculateDamage(i + 1);
+        for (int i = 0; i < 6; i++) {
+            results[i] = calculateDamage(i + 1);
+            damage[i] = results[i][0];
+        }
 
         // If a name is not entered corresponding to a given check, instead display the check result
         // This distinguishes the damage dice even when multiple nameless entries are present
         names[0] = ((EditText)findViewById(R.id.name1)).getText().toString();
         if (names[0].length() == 0)
-            names[0] = ((EditText)findViewById(R.id.checkIn1)).getText().toString();
+            names[0] = results[0][1];
 
         names[1] = ((EditText)findViewById(R.id.name2)).getText().toString();
         if (names[1].length() == 0)
-            names[1] = ((EditText)findViewById(R.id.checkIn2)).getText().toString();
+            names[1] = results[1][1];
 
         names[2] = ((EditText)findViewById(R.id.name3)).getText().toString();
         if (names[2].length() == 0)
-            names[2] = ((EditText)findViewById(R.id.checkIn3)).getText().toString();
+            names[2] = results[2][1];
 
         names[3] = ((EditText)findViewById(R.id.name4)).getText().toString();
         if (names[3].length() == 0)
-            names[3] = ((EditText)findViewById(R.id.checkIn4)).getText().toString();
+            names[3] = results[3][1];
 
         names[4] = ((EditText)findViewById(R.id.name5)).getText().toString();
         if (names[4].length() == 0)
-            names[4] = ((EditText)findViewById(R.id.checkIn5)).getText().toString();
+            names[4] = results[4][1];
 
         names[5] = ((EditText)findViewById(R.id.name6)).getText().toString();
         if (names[5].length() == 0)
-            names[5] = ((EditText)findViewById(R.id.checkIn6)).getText().toString();
+            names[5] = results[5][1];
 
         // Pass the damage dice and the names to the results page
-        resultsIntent.putExtra(EXTRA_RESULTS, result);
+        resultsIntent.putExtra(EXTRA_RESULTS, damage);
         resultsIntent.putExtra(EXTRA_NAMES, names);
 
         startActivity(resultsIntent);
